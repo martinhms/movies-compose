@@ -64,5 +64,8 @@ dependencies {
     implementation(libs.ktor.client.okhttp)
     //- NAVIGATION COMPOSE
     implementation(libs.androidx.navigation.compose)
+    //View model
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
 
 }
