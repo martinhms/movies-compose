@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlinxSerialization)
+    id("com.google.dagger.hilt.android")
+    kotlin("kapt")
 }
 
 android {
@@ -71,6 +73,10 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     //View model
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-
-
+    // Hilt dependencies
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+}
+kapt {
+    correctErrorTypes = true
 }

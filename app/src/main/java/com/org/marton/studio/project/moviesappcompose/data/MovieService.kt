@@ -2,7 +2,12 @@ package com.org.marton.studio.project.moviesappcompose.data
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
+import io.ktor.client.plugins.DefaultRequest
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
+import io.ktor.http.URLProtocol
+import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.json.Json
 
 class MovieService(
     private val client: HttpClient
@@ -14,9 +19,27 @@ class MovieService(
 
     suspend fun fetchMovieDetails(id: String): DetailMovieResponse {
         val url = "/3/movie/$id"
-//        println("fetchMovieDetails URL: $url")
-//           val response = client.get(url).body<String>()
-//            println("fetchMovieDetails API Response: $response")
         return client.get(url).body<DetailMovieResponse>()
+    }
+
+    companion object {
+        fun create(apiKey: String): MovieService {
+            val client = HttpClient {
+                install(ContentNegotiation) {
+                    json(Json {
+                        ignoreUnknownKeys = true
+                        coerceInputValues = true
+                    })
+                }
+                install(DefaultRequest) {
+                    url {
+                        protocol = URLProtocol.HTTPS
+                        host = "api.themoviedb.org"
+                        parameters.append("api_key", apiKey)
+                    }
+                }
+            }
+            return MovieService(client)
+        }
     }
 }

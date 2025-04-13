@@ -1,4 +1,4 @@
-package com.org.marton.studio.project.moviesappcompose.ui.theme
+package com.org.marton.studio.project.moviesappcompose.domain
 
 data class Movie(
     val id: Int,

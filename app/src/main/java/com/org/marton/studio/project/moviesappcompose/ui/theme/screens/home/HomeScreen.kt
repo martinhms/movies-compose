@@ -22,7 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.org.marton.studio.project.moviesappcompose.ui.theme.Movie
+import com.org.marton.studio.project.moviesappcompose.domain.Movie
 import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.Screen
 import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.components.LoadingIndicator
 import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.components.MyTopAppBar

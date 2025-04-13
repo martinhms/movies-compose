@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.org.marton.studio.project.moviesappcompose.data.MoviesRepository
-import com.org.marton.studio.project.moviesappcompose.ui.theme.Movie
+import com.org.marton.studio.project.moviesappcompose.domain.MoviesRepository
+import com.org.marton.studio.project.moviesappcompose.domain.Movie
 import kotlinx.coroutines.launch
 
 class DetailViewModel(id: String, private val repository: MoviesRepository) : ViewModel() {

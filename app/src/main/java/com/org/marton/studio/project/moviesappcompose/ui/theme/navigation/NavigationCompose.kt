@@ -2,7 +2,6 @@ package com.org.marton.studio.project.moviesappcompose.ui.theme.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
@@ -12,24 +11,18 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.org.marton.studio.project.moviesappcompose.R
 import com.org.marton.studio.project.moviesappcompose.data.MovieService
-import com.org.marton.studio.project.moviesappcompose.data.MoviesRepository
+import com.org.marton.studio.project.moviesappcompose.domain.MoviesRepository
+import com.org.marton.studio.project.moviesappcompose.data.MoviesRepositoryImpl
 import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.detail.DetailScreen
 import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.detail.DetailViewModel
 import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.home.HomeScreen
 import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.home.HomeViewModel
-import io.ktor.client.HttpClient
-import io.ktor.client.plugins.DefaultRequest
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.http.URLProtocol
-import io.ktor.serialization.kotlinx.json.json
-import kotlinx.serialization.json.Json
 
 
 @Composable
-fun NavigationCompose(modifier: Modifier = Modifier) {
+fun NavigationCompose() {
     val navController = rememberNavController()
     val repository = rememberMovieRepository()
-    // pasamos las funcionaes a remember para que no se creen cada vez que recomposen
 
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
@@ -58,22 +51,6 @@ fun NavigationCompose(modifier: Modifier = Modifier) {
 private fun rememberMovieRepository(
     apiKey: String = stringResource(R.string.api_key)
 ): MoviesRepository = remember {
-    val client = HttpClient {
-        install(ContentNegotiation) {
-            json(Json {
-                ignoreUnknownKeys =
-                    true // si no se parsea el objeto completo lanza un error en false,
-                coerceInputValues = true
-            })
-        }
-        install(DefaultRequest) {
-            url {
-                protocol = URLProtocol.HTTPS
-                host = "api.themoviedb.org"
-                parameters.append("api_key", apiKey)
-            }
-        }
-    }
-
-    MoviesRepository(MovieService(client = client))
+    val movieService = MovieService.create(apiKey)
+    MoviesRepositoryImpl(movieService)
 }
