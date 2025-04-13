@@ -1,5 +1,6 @@
-package com.org.marton.studio.project.moviesappcompose.data
+package com.org.marton.studio.project.moviesappcompose.data.ktor
 
+import com.org.marton.studio.project.moviesappcompose.data.DetailMovieResponse
 import com.org.marton.studio.project.moviesappcompose.domain.Movie
 import com.org.marton.studio.project.moviesappcompose.domain.MoviesRepository
 

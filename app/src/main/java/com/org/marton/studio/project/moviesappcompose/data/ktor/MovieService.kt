@@ -1,5 +1,7 @@
-package com.org.marton.studio.project.moviesappcompose.data
+package com.org.marton.studio.project.moviesappcompose.data.ktor
 
+import com.org.marton.studio.project.moviesappcompose.data.DetailMovieResponse
+import com.org.marton.studio.project.moviesappcompose.data.MovieResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.DefaultRequest

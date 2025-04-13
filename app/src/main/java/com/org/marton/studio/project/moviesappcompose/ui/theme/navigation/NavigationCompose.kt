@@ -10,9 +10,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.org.marton.studio.project.moviesappcompose.R
-import com.org.marton.studio.project.moviesappcompose.data.MovieService
+import com.org.marton.studio.project.moviesappcompose.data.ktor.MovieService
 import com.org.marton.studio.project.moviesappcompose.domain.MoviesRepository
-import com.org.marton.studio.project.moviesappcompose.data.MoviesRepositoryImpl
+import com.org.marton.studio.project.moviesappcompose.data.ktor.MoviesRepositoryImpl
 import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.detail.DetailScreen
 import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.detail.DetailViewModel
 import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.home.HomeScreen
