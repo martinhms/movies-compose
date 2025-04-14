@@ -1,16 +1,11 @@
 package com.org.marton.studio.project.moviesappcompose.domain.usecases
 
-import com.org.marton.studio.project.moviesappcompose.ApiKeyHolder
-import com.org.marton.studio.project.moviesappcompose.data.ktor.MovieService
-import com.org.marton.studio.project.moviesappcompose.data.ktor.MoviesRepositoryImpl
+
 import com.org.marton.studio.project.moviesappcompose.domain.Movie
+import com.org.marton.studio.project.moviesappcompose.domain.MoviesRepository
 import javax.inject.Inject
 
-class GetMoviesUseCase @Inject constructor(){
-    private val apiKey = ApiKeyHolder.getApiKey()
-    private val movieService = MovieService.create(apiKey)
-    private val repository = MoviesRepositoryImpl(movieService)
-
+class GetMoviesUseCase @Inject constructor(private val repository: MoviesRepository) {
     suspend operator fun invoke(): List<Movie> {
         return repository.fetchPopularMovies()
     }
