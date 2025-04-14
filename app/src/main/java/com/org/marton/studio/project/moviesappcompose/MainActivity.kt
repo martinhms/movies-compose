@@ -3,25 +3,13 @@ package com.org.marton.studio.project.moviesappcompose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import com.org.marton.studio.project.moviesappcompose.ui.theme.MoviesAppComposeTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        ApiKeyHolder.initialize(this, R.string.api_key)
         setContent {
             App()
         }
-    }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MoviesAppComposeTheme {
-        App()
     }
 }

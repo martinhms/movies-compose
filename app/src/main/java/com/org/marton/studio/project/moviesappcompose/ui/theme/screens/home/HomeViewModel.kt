@@ -5,15 +5,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.org.marton.studio.project.moviesappcompose.domain.MoviesRepository
 import com.org.marton.studio.project.moviesappcompose.domain.Movie
+import com.org.marton.studio.project.moviesappcompose.domain.usecases.GetMoviesUseCase
 import kotlinx.coroutines.launch
 
 
-class HomeViewModel(
-    private val repository: MoviesRepository
-) : ViewModel() {
+class HomeViewModel : ViewModel() {
 
+    private val getMoviesUseCase = GetMoviesUseCase()
     var state by mutableStateOf(UiState())
         private set
 
@@ -21,7 +20,7 @@ class HomeViewModel(
         viewModelScope.launch {
             try {
                 state = UiState(loading = true)
-                val response = repository.fetchPopularMovies()
+                val response = getMoviesUseCase.invoke()
                 state = UiState(loading = false, movies = response)
                 println("fetching movies response: $response")
             } catch (e: Exception) {

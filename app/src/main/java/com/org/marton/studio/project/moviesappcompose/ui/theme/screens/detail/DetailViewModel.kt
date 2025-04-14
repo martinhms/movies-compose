@@ -5,12 +5,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.org.marton.studio.project.moviesappcompose.domain.MoviesRepository
 import com.org.marton.studio.project.moviesappcompose.domain.Movie
+import com.org.marton.studio.project.moviesappcompose.domain.usecases.GetMovieDetailUseCase
 import kotlinx.coroutines.launch
 
-class DetailViewModel(id: String, private val repository: MoviesRepository) : ViewModel() {
+class DetailViewModel(id: String) : ViewModel() {
 
+    private val getMovieDetailUseCase = GetMovieDetailUseCase()
     var state by mutableStateOf(UiState())
         private set
 
@@ -18,7 +19,7 @@ class DetailViewModel(id: String, private val repository: MoviesRepository) : Vi
         viewModelScope.launch {
             try {
                 state = UiState(loading = true)
-                val response = repository.fetchMovieDetails(id)
+                val response = getMovieDetailUseCase.invoke(id)
                 state = UiState(loading = false, movie = response)
                 println("fetching detail detail movie response: $response")
             } catch (e: Exception) {
