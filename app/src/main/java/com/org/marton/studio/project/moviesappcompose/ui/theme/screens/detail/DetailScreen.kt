@@ -16,6 +16,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
@@ -27,19 +28,29 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil3.compose.AsyncImage
 import com.org.marton.studio.project.moviesappcompose.R
 import com.org.marton.studio.project.moviesappcompose.domain.Movie
 import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.Screen
 import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.components.LoadingIndicator
 import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.components.MyTopAppBar
+import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.home.HomeViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreen(viewModel: DetailViewModel, onBack: () -> Unit) {
+fun DetailScreen(movieId: String, onBack: () -> Unit) {
+
+    val viewModel: DetailViewModel = hiltViewModel()
+
     val state = viewModel.state
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+
+    LaunchedEffect(movieId) {
+        viewModel.loadMovieDetails(movieId)
+    }
+
     Screen {
         Scaffold(
             topBar =
@@ -80,7 +91,8 @@ private fun MovieDetailComponent(
             model = movie?.backdrop,
             contentDescription = movie?.title,
             contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .aspectRatio(16 / 9f)
         )
         Text(
@@ -99,7 +111,9 @@ private fun MovieDetailComponent(
                 property(stringResource(R.string.popular), movie?.popularity.toString() ?: "")
                 property(stringResource(R.string.votes), movie?.voteAverage.toString() ?: "")
             },
-            modifier = Modifier.padding(16.dp).fillMaxWidth()
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.secondaryContainer)
         )
 

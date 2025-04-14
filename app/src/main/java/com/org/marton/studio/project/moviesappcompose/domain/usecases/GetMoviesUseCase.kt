@@ -4,8 +4,9 @@ import com.org.marton.studio.project.moviesappcompose.ApiKeyHolder
 import com.org.marton.studio.project.moviesappcompose.data.ktor.MovieService
 import com.org.marton.studio.project.moviesappcompose.data.ktor.MoviesRepositoryImpl
 import com.org.marton.studio.project.moviesappcompose.domain.Movie
+import javax.inject.Inject
 
-class GetMoviesUseCase {
+class GetMoviesUseCase @Inject constructor(){
     private val apiKey = ApiKeyHolder.getApiKey()
     private val movieService = MovieService.create(apiKey)
     private val repository = MoviesRepositoryImpl(movieService)

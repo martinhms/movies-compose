@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil3.compose.AsyncImage
 import com.org.marton.studio.project.moviesappcompose.domain.Movie
 import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.Screen
@@ -31,7 +32,7 @@ import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.component
 @Composable
 fun HomeScreen(
     onMovieClick: (String) -> Unit,
-    viewModel: HomeViewModel //= viewModel { HomeViewModel() }  Ante varias recomposiciones se utiliza siempre el mismo vm sin crear uno nuevo
+    viewModel: HomeViewModel
 ) {
     Screen {
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()

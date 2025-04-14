@@ -7,15 +7,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.org.marton.studio.project.moviesappcompose.domain.Movie
 import com.org.marton.studio.project.moviesappcompose.domain.usecases.GetMovieDetailUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetailViewModel(id: String) : ViewModel() {
+@HiltViewModel
+class DetailViewModel @Inject constructor(
+  private val getMovieDetailUseCase: GetMovieDetailUseCase
+) : ViewModel() {
 
-    private val getMovieDetailUseCase = GetMovieDetailUseCase()
     var state by mutableStateOf(UiState())
         private set
 
-    init {
+    fun loadMovieDetails(id: String) {
         viewModelScope.launch {
             try {
                 state = UiState(loading = true)
@@ -24,7 +28,7 @@ class DetailViewModel(id: String) : ViewModel() {
                 println("fetching detail detail movie response: $response")
             } catch (e: Exception) {
                 println("Error fetching detail ${e.message}")
-                state =UiState(loading = false, error = e.message)
+                state = UiState(loading = false, error = e.message)
             }
         }
     }
