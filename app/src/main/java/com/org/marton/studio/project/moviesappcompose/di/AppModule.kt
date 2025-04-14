@@ -1,9 +1,6 @@
 package com.org.marton.studio.project.moviesappcompose.di
 
 import com.org.marton.studio.project.moviesappcompose.ApiKeyHolder
-import com.org.marton.studio.project.moviesappcompose.data.ktor.MovieService
-import com.org.marton.studio.project.moviesappcompose.data.ktor.MoviesRepositoryImpl
-import com.org.marton.studio.project.moviesappcompose.domain.MoviesRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,15 +33,5 @@ object AppModule {
                 }
             }
         }
-    }
-
-    @Provides
-    fun provideMovieService(httpClient: HttpClient): MovieService {
-        return MovieService(httpClient)
-    }
-
-    @Provides
-    fun provideMoviesRepository(movieService: MovieService): MoviesRepository {
-        return MoviesRepositoryImpl(movieService)
     }
 }
