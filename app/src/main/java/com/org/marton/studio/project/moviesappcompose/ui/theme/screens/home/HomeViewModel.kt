@@ -7,12 +7,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.org.marton.studio.project.moviesappcompose.domain.Movie
 import com.org.marton.studio.project.moviesappcompose.domain.usecases.GetMoviesUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
-class HomeViewModel(
+class HomeViewModel : ViewModel() {
+
     private val getMoviesUseCase: GetMoviesUseCase = GetMoviesUseCase()
-): ViewModel() {
 
     var state by mutableStateOf(UiState())
         private set

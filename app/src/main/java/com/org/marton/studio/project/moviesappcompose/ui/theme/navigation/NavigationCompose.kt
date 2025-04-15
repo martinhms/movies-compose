@@ -13,16 +13,15 @@ import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.home.Home
 import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.home.HomeViewModel
 
 @Composable
-fun NavigationCompose() {
+fun NavigationCompose(homeViewModel: HomeViewModel) {
     val navController = rememberNavController()
-
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
             HomeScreen(
                 onMovieClick = { movieId ->
                     navController.navigate("detail/${movieId}")
                 },
-                viewModel = viewModel { HomeViewModel() }
+                viewModel = homeViewModel
             )
         }
         composable(

@@ -31,7 +31,7 @@ import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.component
 @Composable
 fun HomeScreen(
     onMovieClick: (String) -> Unit,
-    viewModel: HomeViewModel //= viewModel { HomeViewModel() }  Ante varias recomposiciones se utiliza siempre el mismo vm sin crear uno nuevo
+    viewModel: HomeViewModel
 ) {
     Screen {
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()

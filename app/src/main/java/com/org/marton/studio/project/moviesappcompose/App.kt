@@ -1,11 +1,10 @@
 package com.org.marton.studio.project.moviesappcompose
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import com.org.marton.studio.project.moviesappcompose.ui.theme.navigation.NavigationCompose
+import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.home.HomeViewModel
 
 @Composable
-@Preview
-fun App() {
-    NavigationCompose()
+fun App(homeViewModel: HomeViewModel) {
+    NavigationCompose(homeViewModel = homeViewModel)
 }
