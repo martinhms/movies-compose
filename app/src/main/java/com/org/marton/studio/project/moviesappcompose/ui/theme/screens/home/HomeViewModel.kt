@@ -10,9 +10,10 @@ import com.org.marton.studio.project.moviesappcompose.domain.usecases.GetMoviesU
 import kotlinx.coroutines.launch
 
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(
+    private val getMoviesUseCase: GetMoviesUseCase = GetMoviesUseCase()
+): ViewModel() {
 
-    private val getMoviesUseCase = GetMoviesUseCase()
     var state by mutableStateOf(UiState())
         private set
 
