@@ -30,7 +30,8 @@ fun NavigationCompose(homeViewModel: HomeViewModel) {
         ) { backStackEntry ->
             val movieId = checkNotNull(backStackEntry.arguments?.getString("movieId"))
             DetailScreen(
-                viewModel = viewModel { DetailViewModel(id = movieId) },
+                movieId = movieId,
+                viewModel = viewModel { DetailViewModel() },
                 onBack = { navController.popBackStack() }
             )
         }

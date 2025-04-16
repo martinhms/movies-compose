@@ -9,13 +9,13 @@ import com.org.marton.studio.project.moviesappcompose.domain.Movie
 import com.org.marton.studio.project.moviesappcompose.domain.usecases.GetMovieDetailUseCase
 import kotlinx.coroutines.launch
 
-class DetailViewModel(id: String) : ViewModel() {
+class DetailViewModel : ViewModel() {
 
     private val getMovieDetailUseCase = GetMovieDetailUseCase()
     var state by mutableStateOf(UiState())
         private set
 
-    init {
+    fun loadMovieDetails(id: String) {
         viewModelScope.launch {
             try {
                 state = UiState(loading = true)
@@ -24,11 +24,10 @@ class DetailViewModel(id: String) : ViewModel() {
                 println("fetching detail detail movie response: $response")
             } catch (e: Exception) {
                 println("Error fetching detail ${e.message}")
-                state =UiState(loading = false, error = e.message)
+                state = UiState(loading = false, error = e.message)
             }
         }
     }
-
     data class UiState(
         val loading: Boolean = false,
         val movie: Movie? = null,

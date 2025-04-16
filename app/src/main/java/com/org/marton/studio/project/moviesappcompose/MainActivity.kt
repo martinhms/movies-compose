@@ -4,9 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.detail.DetailViewModel
 import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.home.HomeViewModel
-import dagger.hilt.android.AndroidEntryPoint
 
 class MainActivity : ComponentActivity() {
     private val homeViewModel: HomeViewModel by viewModels()
