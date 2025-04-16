@@ -1,6 +1,7 @@
 package com.org.marton.studio.project.moviesappcompose.ui.theme.screens.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,33 +15,39 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.org.marton.studio.project.moviesappcompose.ui.theme.Movie
-import com.org.marton.studio.project.moviesappcompose.ui.theme.movies
+import coil3.compose.AsyncImage
+import com.org.marton.studio.project.moviesappcompose.domain.Movie
 import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.Screen
-
+import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.components.LoadingIndicator
+import com.org.marton.studio.project.moviesappcompose.ui.theme.screens.components.MyTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    onMovieClick: (String) -> Unit,
+    viewModel: HomeViewModel
+) {
     Screen {
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
         Scaffold(
             topBar = {
-                TopAppBar(title = {
-                    Text(stringResource(Res.string.app_name))
-                })
+                MyTopAppBar(
+                    onBackClick = {},
+                    navIcon = false,
+                    firstAction = false,
+                    onSettingsClick = {},
+                    scrollBehavior = scrollBehavior
+                )
             },
-            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
         ) { padding ->
+            val state = viewModel.state
+            LoadingIndicator(eneable = state.loading)
             LazyVerticalGrid(
                 modifier = Modifier.padding(padding),
                 columns = GridCells.Adaptive(120.dp),
@@ -48,18 +55,21 @@ fun HomeScreen() {
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                items(items = movies, key = { it.id }) {
-                    MovieItem(movie = it)
+                items(items = state.movies, key = { it.id }) {
+                    MovieItem(movie = it) { movie ->
+                        onMovieClick(movie)
+                    }
                 }
             }
-        }
 
+
+        }
     }
 }
 
 @Composable
-fun MovieItem(movie: Movie) {
-    Column {
+fun MovieItem(movie: Movie, onMovieClick: (String) -> Unit) {
+    Column(modifier = Modifier.clickable { onMovieClick(movie.id.toString()) }) {
         AsyncImage(
             model = movie.poster,
             contentDescription = movie.title,
@@ -76,5 +86,4 @@ fun MovieItem(movie: Movie) {
             modifier = Modifier.padding(8.dp)
         )
     }
-
 }
